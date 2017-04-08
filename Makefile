@@ -28,7 +28,7 @@ DOCKER_COMPOSITE_SOURCES = common.docker common.debian common.manylinux common.c
 IMAGES = $(STANDARD_IMAGES) $(NON_STANDARD_IMAGES)
 
 # Optional arguments for test runner (test/run.py) associated with "testing implicit rule"
-linux-arm-cortex.test_ARGS = --languages C --build-systems CMake # --emulator "/usr/bin/qemu-arm -cpu cortex-m3"
+linux-arm-cortex.test_ARGS = --languages C --build-systems CMake --emulator "/usr/bin/qemu-arm "
 linux-ppc64le.test_ARGS = --languages C
 windows-x86.test_ARGS = --exe-suffix ".exe"
 windows-x64.test_ARGS = --exe-suffix ".exe"
