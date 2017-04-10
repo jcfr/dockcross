@@ -117,6 +117,8 @@ dockcross/linux-arm64
   |linux-arm64-images| Cross compiler for the 64-bit ARM platform on Linux,
   also known as AArch64.
 
+dockcross/linux-arm-cortex
+  |linux-arm-cortex| Cross compiler for the ARM-Cortex A7 and ARM-Cortex A53 platform on Bare-Metal!!
 
 .. |linux-armv5-images| image:: https://images.microbadger.com/badges/image/dockcross/linux-armv5.svg
   :target: https://microbadger.com/images/dockcross/linux-armv5

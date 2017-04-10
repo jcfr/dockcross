@@ -20,7 +20,7 @@ ENV AS=${CROSS_ROOT}/${CROSS_TRIPLE}-as \
     CPP=${CROSS_ROOT}/${CROSS_TRIPLE}-cpp \
     CXX=${CROSS_ROOT}/${CROSS_TRIPLE}-g++ \
     LD=${CROSS_ROOT}/${CROSS_TRIPLE}-ld
-ENV PATH=$PATH:${CROSS_ROOT}
+ENV PATH=$PATH:${CROSS_ROOT}:/opt/linaro/gcc-linaro-6.3.1-2017.02-x86_64_aarch64-elf/bin
 ENV DEFAULT_DOCKCROSS_IMAGE dockcross/linux-arm-cortex
 
 COPY Toolchain.cmake ${CROSS_ROOT}
