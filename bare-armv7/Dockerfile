@@ -3,13 +3,11 @@ MAINTAINER Declan Zhang <deqzhang@ucdavis.edu>
 
 # Download and install cross-compiler binaries
 RUN wget https://releases.linaro.org/components/toolchain/binaries/latest/arm-eabi/gcc-linaro-6.3.1-2017.02-x86_64_arm-eabi.tar.xz
-RUN wget https://releases.linaro.org/components/toolchain/binaries/latest/aarch64-elf/gcc-linaro-6.3.1-2017.02-x86_64_aarch64-elf.tar.xz
 RUN apt-get update && apt-get install -y qemu-user qemu-user-static libpython-dev
 
 RUN mkdir -p /opt/linaro/
 RUN tar xf gcc-linaro-6.3.1-2017.02-x86_64_arm-eabi.tar.xz -C /opt/linaro/
-RUN tar xf gcc-linaro-6.3.1-2017.02-x86_64_aarch64-elf.tar.xz -C /opt/linaro/
-RUN rm -f gcc-linaro-6.3.1-2017.02-x86_64_arm-eabi.tar.xz gcc-linaro-6.3.1-2017.02-x86_64_aarch64-elf.tar.xz
+RUN rm -f gcc-linaro-6.3.1-2017.02-x86_64_arm-eabi.tar.xz
 
 ENV CROSS_TRIPLE arm-eabi
 ENV CROSS_PATH /opt/linaro/gcc-linaro-6.3.1-2017.02-x86_64_arm-eabi
@@ -20,8 +18,8 @@ ENV AS=${CROSS_ROOT}/${CROSS_TRIPLE}-as \
     CPP=${CROSS_ROOT}/${CROSS_TRIPLE}-cpp \
     CXX=${CROSS_ROOT}/${CROSS_TRIPLE}-g++ \
     LD=${CROSS_ROOT}/${CROSS_TRIPLE}-ld
-ENV PATH=$PATH:${CROSS_ROOT}:/opt/linaro/gcc-linaro-6.3.1-2017.02-x86_64_aarch64-elf/bin
-ENV DEFAULT_DOCKCROSS_IMAGE dockcross/linux-arm-cortex
+ENV PATH=$PATH:${CROSS_ROOT}
+ENV DEFAULT_DOCKCROSS_IMAGE dockcross/bare-armv7
 
 COPY Toolchain.cmake ${CROSS_ROOT}
 ENV CMAKE_TOOLCHAIN_FILE ${CROSS_ROOT}/Toolchain.cmake
