@@ -103,6 +103,21 @@ dockcross/android-arm64
   |android-arm64-images| The Android NDK standalone toolchain for the arm64
   architecture.
 
+
+.. |bare-armv7-images| image:: https://images.microbadger.com/badges/image/dockcross/bare-armv7.svg
+  :target: https://microbadger.com/images/dockcross/bare-armv7
+
+dockcross/bare-armv7
+  |bare-armv7-images| Cross compiler for little-endian, soft-float, 32-bit ARMv7 (and earlier) for bare-metal systems.
+
+
+.. |bare-armv8-images| image:: https://images.microbadger.com/badges/image/dockcross/bare-armv8.svg
+  :target: https://microbadger.com/images/dockcross/bare-armv8
+
+dockcross/bare-armv8
+  |bare-armv8-images| Cross compiler for little-endian, 64-bit ARMv8 for bare-metal systems.
+
+
 .. |browser-asmjs-images| image:: https://images.microbadger.com/badges/image/dockcross/browser-asmjs.svg
   :target: https://microbadger.com/images/dockcross/browser-asmjs
 

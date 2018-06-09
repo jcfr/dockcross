@@ -63,6 +63,44 @@ jobs:
       - save_cache:
           key: android-arm64-assets-{{ .Revision }}
           paths: ~/docker/android-arm64.tar
+  bare-armv7:
+    <<: *build-settings
+    steps:
+      - restore_cache:
+          key: base-assets-{{ .Revision }}
+      - run:
+         name: bare-armv7 build
+         no_output_timeout: 1.5h
+         command: |
+           docker load -i ~/docker/base.tar
+           make bare-armv7
+           docker save -o ~/docker/bare-armv7.tar dockcross/bare-armv7:latest
+      - run:
+         name: bare-armv7 test
+         command: |
+           make bare-armv7.test
+      - save_cache:
+          key: bare-armv7-assets-{{ .Revision }}
+          paths: ~/docker/bare-armv7.tar
+  bare-armv8:
+    <<: *build-settings
+    steps:
+      - restore_cache:
+          key: base-assets-{{ .Revision }}
+      - run:
+         name: bare-armv8 build
+         no_output_timeout: 1.5h
+         command: |
+           docker load -i ~/docker/base.tar
+           make bare-armv8
+           docker save -o ~/docker/bare-armv8.tar dockcross/bare-armv8:latest
+      - run:
+         name: bare-armv8 test
+         command: |
+           make bare-armv8.test
+      - save_cache:
+          key: bare-armv8-assets-{{ .Revision }}
+          paths: ~/docker/bare-armv8.tar
   browser-asmjs:
     <<: *build-settings
     steps:
@@ -367,6 +405,26 @@ jobs:
               docker push dockcross/android-arm64:latest
             fi
       - restore_cache:
+          key: bare-armv7-assets-{{ .Revision }}
+      - deploy:
+          name: Deploy bare-armv7
+          command: |
+            docker load -i ~/docker/bare-armv7.tar
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker push dockcross/bare-armv7:latest
+            fi
+      - restore_cache:
+          key: bare-armv8-assets-{{ .Revision }}
+      - deploy:
+          name: Deploy bare-armv8
+          command: |
+            docker load -i ~/docker/bare-armv8.tar
+            if [ "${CIRCLE_BRANCH}" == "master" ]; then
+              docker login -u $DOCKER_USER -p $DOCKER_PASS
+              docker push dockcross/bare-armv8:latest
+            fi
+      - restore_cache:
           key: browser-asmjs-assets-{{ .Revision }}
       - deploy:
           name: Deploy browser-asmjs
@@ -522,6 +580,12 @@ workflows:
         - android-arm64:
             requires:
               - base
+        - bare-armv7:
+            requires:
+              - base
+        - bare-armv8:
+            requires:
+              - base
         - browser-asmjs:
             requires:
               - base
@@ -573,6 +637,8 @@ workflows:
               - base
               - android-arm
               - android-arm64
+              - bare-armv7
+              - bare-armv8
               - browser-asmjs
               - linux-arm64
               #- linux-armv5
